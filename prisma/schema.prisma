@@ -4,8 +4,40 @@
 // Looking for ways to speed up your queries, or scale easily with your serverless or edge functions?
 // Try Prisma Accelerate: https://pris.ly/cli/accelerate-init
 
+generator client {
+  provider = "prisma-client-js"
+}
 
 datasource db {
-  provider = "postgresql"
-  url      = env("DATABASE_URL")
+  provider          = "postgresql"
+  url               = env("DEV_DOCKER_DATABASE")
+  shadowDatabaseUrl = env("DEV_DOCKER_SHADOW_DATABASE")
+}
+
+model Customer {
+  id             String        @id @default(cuid())
+  name           String
+  email          String        @unique
+  wallet_balance Int // stored in cents
+  transactions   Transaction[]
+}
+
+model Transaction {
+  id          String            @id @default(cuid())
+  customer_id String
+  amount      Int
+  type        TransactionType
+  status      TransactionStatus
+  created_at  DateTime          @default(now())
+  customer    Customer          @relation(fields: [customer_id], references: [id], onDelete: Cascade)
+}
+
+enum TransactionType {
+  CREDIT
+  DEBIT
+}
+
+enum TransactionStatus {
+  SUCCESS
+  FAILED
 }
