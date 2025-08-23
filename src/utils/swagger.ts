@@ -8,7 +8,7 @@ const options: Options = {
     definition: {
         openapi: "3.0.1",
         info: {
-            title: "Formvive API Documentation",
+            title: "Blu-Penguin API Documentation",
             version: "1.0.0",
         },
         schemes: ["http", "https"],
@@ -28,7 +28,7 @@ const options: Options = {
             },
         ],
     },
-    apis: ["./src/api/**.ts", "./src/schemas/*.ts"],
+    apis: ["./src/api/**/*.ts"],
 };
 
 export const swaggerSpec = swaggerJSDoc(options);

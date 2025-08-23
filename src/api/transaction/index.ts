@@ -1,9 +1,7 @@
 import { Router } from "express";
 import * as TransactionController from "./handlers";
 
-
 const router = Router({ mergeParams: true });
-
 
 /**
  * @swagger

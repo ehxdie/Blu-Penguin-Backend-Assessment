@@ -1,13 +1,11 @@
 import { Router } from "express";
 import * as CustomerController from "./handlers";
-import { checkJwt } from "../../middlewares/checkJwt";
 const router = Router({ mergeParams: true });
 
-router.use(checkJwt);
 
 /**
  * @swagger
- * /api/v1/customer:
+ * /api/v1/customers:
  *   post:
  *     tags:
  *       - Customer
@@ -62,7 +60,7 @@ router.post("/", CustomerController.createCustomerHandler);
 
 /**
  * @swagger
- * /api/v1/customer/{id}:
+ * /api/v1/customers/{id}:
  *   get:
  *     tags:
  *       - Customer
@@ -101,7 +99,7 @@ router.get("/:id", CustomerController.getCustomerHandler);
 
 /**
  * @swagger
- * /api/v1/customer/{id}/transactions:
+ * /api/v1/customers/{id}/transactions:
  *   get:
  *     tags:
  *       - Customer

@@ -11,7 +11,7 @@ router.get("/healthcheck", (req: Request, res: Response) => {
 });
 
 router.use("/:version/customers", customerRoutes);
-router.use("/:version/transaction", transactionRoutes);
+router.use("/:version/transactions", transactionRoutes);
 
 
 export default router;
