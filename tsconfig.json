@@ -13,9 +13,7 @@
     "strictNullChecks": true,
     "baseUrl": ".",
     "paths": {
-      "*": [
-        "node_modules/*"
-      ]
+      "*": ["node_modules/*"]
     }
   },
   "include": [
@@ -26,9 +24,5 @@
     "models/**/*",
     "server.ts"
   ],
-  "exclude": [
-    "node_modules",
-    "**/*.test.ts",
-    "dist"
-  ]
+  "exclude": ["node_modules", "**/*.test.ts", "dist"]
 }
