@@ -6,8 +6,6 @@ export const redisClient = new Redis({
     port: redis.port,
     password: redis.password,
 
-    //tls: {},
-
     maxRetriesPerRequest: null,
 
     retryStrategy(times) {
