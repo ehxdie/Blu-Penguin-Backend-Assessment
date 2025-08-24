@@ -21,7 +21,7 @@ Blu-Penguin Backend is a modern RESTful API designed for financial operations su
 - Create credit and debit transactions
 - Atomic wallet and transaction updates
 - Idempotency support (safe retries)
-- Fetch transactions by customer
+
 
 ### Technical Features
 - Type-safe codebase (TypeScript)
@@ -186,4 +186,5 @@ The API provides the following endpoints:
 ## License
 
 This project is licensed under the MIT License - see the LICENSE file for details.
+
 
