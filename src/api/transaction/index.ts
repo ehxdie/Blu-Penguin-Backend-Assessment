@@ -1,5 +1,5 @@
-import { Router } from "express";
-import * as TransactionController from "./handlers";
+import { Router } from 'express';
+import * as TransactionController from './handlers';
 
 const router = Router({ mergeParams: true });
 
@@ -61,7 +61,6 @@ const router = Router({ mergeParams: true });
  *       500:
  *         description: Server error creating transaction
  */
-router.post("/", TransactionController.createTransactionHandler);
-
+router.post('/', TransactionController.createTransactionHandler);
 
 export default router;

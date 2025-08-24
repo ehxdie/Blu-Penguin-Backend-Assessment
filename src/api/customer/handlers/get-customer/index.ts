@@ -1,1 +1,1 @@
-export * from './get-customer.v1'
+export * from './get-customer.v1';

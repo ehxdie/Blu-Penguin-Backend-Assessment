@@ -1,6 +1,6 @@
-import { environment } from "../config";
+import { environment } from '../config';
 
 export function isDevEnvironment(): boolean {
-    const nodeEnv = environment;
-    return nodeEnv === "development";
+  const nodeEnv = environment;
+  return nodeEnv === 'development';
 }

@@ -1,49 +1,49 @@
-import swaggerJSDoc from "swagger-jsdoc";
-import type { Options } from "swagger-jsdoc";
-import swaggerUi from "swagger-ui-express";
+import swaggerJSDoc from 'swagger-jsdoc';
+import type { Options } from 'swagger-jsdoc';
+import swaggerUi from 'swagger-ui-express';
 
-import type { Express, Request, Response } from "express";
+import type { Express, Request, Response } from 'express';
 
 const options: Options = {
-    definition: {
-        openapi: "3.0.1",
-        info: {
-            title: "Blu-Penguin API Documentation",
-            version: "1.0.0",
-        },
-        schemes: ["http", "https"],
-        servers: [{ url: "http://localhost:3000/api/v1" }],
-        components: {
-            securitySchemas: {
-                bearerAuth: {
-                    type: "http",
-                    scheme: "bearer",
-                    bearerFormat: "JWT",
-                },
-            },
-        },
-        security: [
-            {
-                bearerAuth: [],
-            },
-        ],
+  definition: {
+    openapi: '3.0.1',
+    info: {
+      title: 'Blu-Penguin API Documentation',
+      version: '1.0.0',
     },
-    apis: ["./src/api/**/*.ts"],
+    schemes: ['http', 'https'],
+    servers: [{ url: 'http://localhost:3000/api/v1' }],
+    components: {
+      securitySchemas: {
+        bearerAuth: {
+          type: 'http',
+          scheme: 'bearer',
+          bearerFormat: 'JWT',
+        },
+      },
+    },
+    security: [
+      {
+        bearerAuth: [],
+      },
+    ],
+  },
+  apis: ['./src/api/**/*.ts'],
 };
 
 export const swaggerSpec = swaggerJSDoc(options);
 
 function swaggerDocs(app: Express, port: number) {
-    // Swagger page
-    app.use("/docs", swaggerUi.serve, swaggerUi.setup(swaggerSpec));
+  // Swagger page
+  app.use('/docs', swaggerUi.serve, swaggerUi.setup(swaggerSpec));
 
-    // Docs in JSON format
-    app.get("/docs.json", (req: Request, res: Response) => {
-        res.setHeader("Content-Type", "application/json");
-        res.send(swaggerSpec);
-    });
+  // Docs in JSON format
+  app.get('/docs.json', (req: Request, res: Response) => {
+    res.setHeader('Content-Type', 'application/json');
+    res.send(swaggerSpec);
+  });
 
-    console.log(`Docs available at http://localhost:${port}/docs`);
+  console.log(`Docs available at http://localhost:${port}/docs`);
 }
 
 export default swaggerDocs;

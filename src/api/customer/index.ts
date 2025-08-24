@@ -1,7 +1,6 @@
-import { Router } from "express";
-import * as CustomerController from "./handlers";
+import { Router } from 'express';
+import * as CustomerController from './handlers';
 const router = Router({ mergeParams: true });
-
 
 /**
  * @swagger
@@ -55,8 +54,7 @@ const router = Router({ mergeParams: true });
  *       500:
  *         description: Server error creating customer
  */
-router.post("/", CustomerController.createCustomerHandler);
-
+router.post('/', CustomerController.createCustomerHandler);
 
 /**
  * @swagger
@@ -95,7 +93,7 @@ router.post("/", CustomerController.createCustomerHandler);
  *       500:
  *         description: Server error fetching customer
  */
-router.get("/:id", CustomerController.getCustomerHandler);
+router.get('/:id', CustomerController.getCustomerHandler);
 
 /**
  * @swagger
@@ -137,6 +135,6 @@ router.get("/:id", CustomerController.getCustomerHandler);
  *         description: Server error fetching transactions
  */
 
-router.get("/:id/transactions", CustomerController.getCustomerTransactionsHandler);
+router.get('/:id/transactions', CustomerController.getCustomerTransactionsHandler);
 
 export default router;
