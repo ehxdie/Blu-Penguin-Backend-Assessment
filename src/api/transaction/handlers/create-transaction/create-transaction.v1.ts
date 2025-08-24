@@ -1,6 +1,6 @@
 import { Request, Response } from "express";
 import { createTransaction } from "../../services/database/transaction";
-import { getIdempotencyValue, setIdempotencyValue } from "../../services/database/idempotency";
+import { getIdempotencyValue, setIdempotencyValue } from "../../services/helpers/idempotency";
 import { logger } from "../../../../utils/logger";
 import type { TransactionType, TransactionStatus } from "@prisma/client";
 import { BadRequestError, UnauthorizedError, NotFoundError, BaseError, HttpStatusCode } from "../../../../exceptions";
