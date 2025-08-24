@@ -124,7 +124,6 @@ The API provides the following endpoints:
 ### Transaction Endpoints
 
 - `POST /api/v1/transaction` — Create a transaction (requires `Idempotency-Key` header)
-- `GET /api/v1/transaction/:id` — Get transaction by ID
 
 **Example Create Transaction Request:**
 ```json
@@ -187,3 +186,4 @@ The API provides the following endpoints:
 ## License
 
 This project is licensed under the MIT License - see the LICENSE file for details.
+
