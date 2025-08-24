@@ -19,6 +19,27 @@ services:
     restart: always
     ports:
       - "6379:6379"
+  
+  app:
+    build: .
+    command: npm run dev
+    volumes:
+      - .:/usr/src/app
+      - /usr/src/app/node_modules
+    ports:
+      - "3000:3000"
+    environment:
+      # Use service names for hostnames inside Docker network
+      DEV_DOCKER_DATABASE: "postgresql://postgres:password@db:5432/blupenguin"
+      DEV_DOCKER_SHADOW_DATABASE: "postgresql://postgres:password@db:5432/blupenguin_shadow"
+      PORT: 3000
+      NODE_ENV: development
+      REDIS_HOST: redis
+      REDIS_PORT: 6379
+      REDIS_PASSWORD:
+    depends_on:
+      - db
+      - redis
 
 volumes:
   pgdata:

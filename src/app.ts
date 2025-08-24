@@ -14,8 +14,6 @@ import rateLimit from 'express-rate-limit';
 
 const app = express();
 
-app.enable('trust proxy');
-
 const apiLimiter = rateLimit({
   windowMs: 15 * 60 * 1000,
   max: 100,
