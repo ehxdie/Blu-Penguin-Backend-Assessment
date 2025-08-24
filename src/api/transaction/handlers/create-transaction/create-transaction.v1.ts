@@ -1,10 +1,25 @@
 import { Request, Response } from "express";
 import { createTransaction } from "../../services/database/transaction";
+import { getIdempotencyValue, setIdempotencyValue } from "../../services/database/idempotency";
 import { logger } from "../../../../utils/logger";
 import type { TransactionType, TransactionStatus } from "@prisma/client";
 
 export const createTransactionHandler = async (req: Request, res: Response) => {
     try {
+        const idempotencyKey = req.header("Idempotency-Key") || req.header("idempotency-key");
+
+        if (!idempotencyKey || typeof idempotencyKey !== "string" || idempotencyKey.trim() === "") {
+            logger.warn("Missing Idempotency-Key header");
+            return res.status(400).json({ status: "error", message: "Idempotency-Key header is required" });
+        }
+
+        // return stored response if key exists (value is the actual response payload)
+        const existing = await getIdempotencyValue(idempotencyKey);
+        if (existing) {
+            logger.info(`Idempotency key found, returning stored response for key=${idempotencyKey}`);
+            return res.status(200).json(existing);
+        }
+
         // destructure all expected body params at once with types
         const {
             customerId: rawCustomerId,
@@ -38,7 +53,7 @@ export const createTransactionHandler = async (req: Request, res: Response) => {
             logger.warn("Invalid or missing transaction type");
             return res.status(400).json({ status: "error", message: "type is required and must be either 'CREDIT' or 'DEBIT'" });
         }
-        
+
         const type = rawType.toUpperCase() as TransactionType;
 
         const statusCandidate = typeof rawStatus === "string" ? rawStatus.toUpperCase() : undefined;
@@ -51,11 +66,20 @@ export const createTransactionHandler = async (req: Request, res: Response) => {
             status,
         });
 
-        return res.status(201).json({
+        const responsePayload = {
             status: "ok",
             message: "Transaction created successfully",
             data: transaction,
-        });
+        };
+
+        // persist idempotency record in redis; if it fails, log but still return the created transaction
+        try {
+            await setIdempotencyValue(idempotencyKey, responsePayload);
+        } catch (err) {
+            logger.error(`Failed to persist idempotency record in redis for key=${idempotencyKey}`, err);
+        }
+
+        return res.status(201).json(responsePayload);
     } catch (error: any) {
         logger.error("Error in createTransactionHandler:", error);
         if (error?.message?.toLowerCase()?.includes("insufficient funds")) {
@@ -66,4 +90,4 @@ export const createTransactionHandler = async (req: Request, res: Response) => {
         }
         return res.status(500).json({ status: "error", message: "Failed to create transaction" });
     }
-};
+}

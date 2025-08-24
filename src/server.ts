@@ -1,9 +1,9 @@
 import app from "./app";
 import dotenv from "dotenv";
+import { port } from "./config";
 
 
 dotenv.config();
-const port = process.env.PORT;
 
 
 app.listen(port, async () => {
