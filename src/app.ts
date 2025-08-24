@@ -10,10 +10,23 @@ import { swaggerSpec } from './utils/swagger';
 import { errorHandler } from './middlewares/errorHandler';
 import { BaseError, HttpStatusCode } from './exceptions';
 import { port } from './config';
+import rateLimit from 'express-rate-limit';
 
 const app = express();
 
+
 app.enable('trust proxy');
+
+const apiLimiter = rateLimit({
+  windowMs: 15 * 60 * 1000,
+  max: 100,
+  standardHeaders: true,
+  legacyHeaders: false,
+  // skip docs/metrics
+  skip: (req) => req.path.startsWith('/docs') || req.path.startsWith('/metrics'),
+});
+
+app.use(apiLimiter);
 
 // Configure helmet to allow CORS headers
 app.use(
