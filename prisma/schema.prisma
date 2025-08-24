@@ -42,9 +42,4 @@ enum TransactionStatus {
   FAILED
 }
 
-model IdempotencyKey {
-  id        String   @id @default(cuid())
-  key       String   @unique
-  response  Json
-  createdAt DateTime @default(now())
-}
+

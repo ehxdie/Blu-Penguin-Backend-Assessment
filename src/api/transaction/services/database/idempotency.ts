@@ -27,9 +27,9 @@ export async function getIdempotencyValue(idempotencyKey: string): Promise<any |
  * ttlSeconds defaults to 24 hours.
  */
 
-export async function setIdempotencyValue(idempotencyKey: string, value: unknown, ttlSeconds = 60 * 60 * 24) {
+export async function setIdempotencyValue(idempotencyKey: string, value: any, ttlSeconds = 60 * 60 * 24) {
     try {
-        const payload = typeof value === "string" ? value : JSON.stringify(value);
+        const payload = JSON.stringify(value);
         // use EX to set TTL in seconds
         await redisClient.set(idempotencyKey, payload, "EX", ttlSeconds);
     } catch (error) {
