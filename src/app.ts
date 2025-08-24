@@ -9,17 +9,10 @@ import * as prometheus from "prom-client";
 import { swaggerSpec } from "./utils/swagger";
 import { errorHandler } from "./middlewares/errorHandler";
 import { BaseError, HttpStatusCode } from "./exceptions";
+import { port } from "./config"
 
-const config = {
-    JWT_SECRET: process.env.JWT_SECRET,
-    JWT_EXPIRES_IN: process.env.JWT_EXPIRES_IN,
-    JWT_AUDIENCE: process.env.JWT_AUDIENCE,
-    JWT_ISSUER: process.env.JWT_ISSUER,
-    PORT: process.env.PORT,
-};
 
 const app = express();
-const port = config.PORT || 3000;
 
 app.enable("trust proxy");
 

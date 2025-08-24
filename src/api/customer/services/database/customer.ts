@@ -1,4 +1,3 @@
-// ...existing code...
 import { prismaClient } from "../../../../utils/prisma";
 import { logger } from "../../../../utils/logger";
 import type { Customer } from "@prisma/client";

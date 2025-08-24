@@ -35,7 +35,9 @@ export async function getIdempotencyValue(idempotencyKey: string): Promise<any |
  * ttlSeconds defaults to 24 hours.
  */
 
-export async function setIdempotencyValue(idempotencyKey: string, value: any, ttlSeconds = 60 * 60 * 24) {
+export async function setIdempotencyValue(idempotencyKey: string, value: any) {
+    // setting expiry time of the key
+    const ttlSeconds = 60 * 60 * 24;
     logger.debug(`idempotency:set - attempting to store key=${idempotencyKey} ttl=${ttlSeconds}s`);
     try {
         const payload = JSON.stringify(value);

@@ -18,8 +18,8 @@ export const redisClient = new Redis({
 });
 
 redisClient.on('connect', () => {
-  console.log(`✅ Redis (Aiven) connected to ${redis.host}:${redis.port}`);
+    console.log(`✅ Redis (Aiven) connected to ${redis.host}:${redis.port}`);
 });
 redisClient.on('error', (err) => {
-  console.error('⚠️ Redis error', err);
+    console.error('⚠️ Redis error', err);
 });
