@@ -76,12 +76,7 @@ Blu-Penguin Backend is a modern RESTful API designed for financial operations su
     docker-compose up --build
     ```
 
-4. Run database migrations (in another terminal)
-    ```bash
-    docker-compose exec app npx prisma migrate deploy
-    ```
-
-5. Access the API at [http://localhost:3000](http://localhost:3000)  
+4. Access the API at [http://localhost:3000](http://localhost:3000)  
    Swagger docs at [http://localhost:3000/docs](http://localhost:3000/docs)  
    Adminer at [http://localhost:3001](http://localhost:3001)
 
@@ -186,5 +181,6 @@ The API provides the following endpoints:
 ## License
 
 This project is licensed under the MIT License - see the LICENSE file for details.
+
 
 
